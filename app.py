@@ -118,34 +118,34 @@ elif menu == "Sort Expenses":
             df = pd.DataFrame(res.json())
             st.dataframe(df)
 
-elif menu == "Analytics":
-    st.subheader("Expense Analytics")
+# elif menu == "Analytics":
+#     st.subheader("Expense Analytics")
 
-    res = requests.get(f"{BASE_URL}/category-summary")
+#     res = requests.get(f"{BASE_URL}/category-summary")
 
-    if res.status_code == 200:
-        data = res.json()
-        df = pd.DataFrame(data)
+#     if res.status_code == 200:
+#         data = res.json()
+#         df = pd.DataFrame(data)
 
-        pie = px.pie(df, names="category", values="total")
-        st.plotly_chart(pie)
+#         pie = px.pie(df, names="category", values="total")
+#         st.plotly_chart(pie)
 
-    res2 = requests.get(f"{BASE_URL}/monthly-summary")
+#     res2 = requests.get(f"{BASE_URL}/monthly-summary")
 
-    if res2.status_code == 200:
-        data2 = res2.json()
-        df2 = pd.DataFrame(data2)
+#     if res2.status_code == 200:
+#         data2 = res2.json()
+#         df2 = pd.DataFrame(data2)
 
-        bar = px.bar(df2, x="month", y="total")
-        st.plotly_chart(bar)
+#         bar = px.bar(df2, x="month", y="total")
+#         st.plotly_chart(bar)
 
-elif menu == "Export CSV":
-    st.subheader("Export Expenses")
+# elif menu == "Export CSV":
+#     st.subheader("Export Expenses")
 
-    if st.button("Download CSV"):
-        res = requests.get(f"{BASE_URL}/export")
+#     if st.button("Download CSV"):
+#         res = requests.get(f"{BASE_URL}/export")
 
-        with open("expenses.csv", "wb") as f:
-            f.write(res.content)
+#         with open("expenses.csv", "wb") as f:
+#             f.write(res.content)
 
-        st.success("CSV Downloaded")
+#         st.success("CSV Downloaded")
