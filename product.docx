@@ -1,0 +1,503 @@
+# Expense Tracker Frontend Documentation
+
+## Project Title
+
+Expense Tracker Frontend Application
+
+---
+
+# 1. Introduction
+
+The Expense Tracker Frontend Application is a web-based user interface 
+developed using Python and Streamlit. It allows users to manage daily expenses 
+efficiently by interacting with backend REST APIs.
+
+The application provides the following functionalities:
+
+* Add new expenses
+* View all expenses
+* Update existing expenses
+* Delete expenses
+* View expense summary by category
+
+The frontend communicates with the backend server using HTTP requests.
+
+---
+
+# 2. Technologies Used
+
+| Technology | Purpose                |
+| ---------- | ---------------------- |
+| Python     | Programming Language   |
+| Streamlit  | Frontend Web Framework |
+| Requests   | API Communication      |
+| Pandas     | Data Handling & Tables |
+
+---
+
+# 3. Project Structure
+
+```plaintext
+frontend/
+│
+├── app.py
+├── requirements.txt
+└── .streamlit/
+    └── secrets.toml
+```
+
+---
+
+# 4. Requirements
+
+Install all required libraries using:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# 5. Required Libraries
+
+The following libraries are used:
+
+```python
+streamlit
+requests
+pandas
+```
+
+---
+
+# 6. Backend Configuration
+
+The backend server URL is stored securely using Streamlit secrets.
+
+Example:
+
+```toml
+be_server_url = "https://your-backend-url.com"
+```
+
+Accessed in code using:
+
+```python
+server = st.secrets["be_server_url"]
+```
+
+---
+
+# 7. Application Features
+
+## 7.1 Add Expense
+
+This module allows users to add new expenses.
+
+### Input Fields
+
+* Title
+* Amount
+* Category
+* Payment Method
+* Expense Date
+* Description
+
+### API Used
+
+```http
+POST /add_expense
+```
+
+### Payload Example
+
+```json
+{
+  "title": "Lunch",
+  "amount": 250,
+  "category": "Food",
+  "payment_method": "UPI",
+  "expense_date": "2026-05-28",
+  "description": "Lunch with friends"
+}
+```
+
+### Functionality
+
+* Collects user input
+* Sends POST request to backend
+* Displays success or error message
+
+---
+
+## 7.2 View Expenses
+
+Displays all saved expenses in table format.
+
+### API Used
+
+```http
+GET /get_expenses
+```
+
+### Features
+
+* Shows all expense records
+* Displays total expense amount
+* Uses Pandas DataFrame for tabular display
+
+### Output Example
+
+| ID | Title | Amount | Category |
+| -- | ----- | ------ | -------- |
+| 1  | Lunch | 250    | Food     |
+
+---
+
+## 7.3 Update Expense
+
+Allows updating an existing expense.
+
+### Process
+
+1. Enter Expense ID
+2. Fetch existing data
+3. Edit fields
+4. Submit updated information
+
+### APIs Used
+
+```http
+GET /get_single_expense/{id}
+PUT /update_expense/{id}
+```
+
+### Features
+
+* Pre-fills existing expense data
+* Updates selected expense
+* Uses session state for temporary storage
+
+---
+
+## 7.4 Delete Expense
+
+Deletes an expense using Expense ID.
+
+### API Used
+
+```http
+DELETE /delete_expense/{id}
+```
+
+### Features
+
+* Removes expense permanently
+* Displays confirmation message
+
+---
+
+## 7.5 Expense Summary
+
+Displays category-wise expense summary.
+
+### API Used
+
+```http
+GET /expense_summary
+```
+
+### Features
+
+* Shows category-wise totals
+* Displays bar chart visualization
+* Uses Streamlit charts
+
+---
+
+# 8. Streamlit Components Used
+
+| Component              | Purpose            |
+| ---------------------- | ------------------ |
+| st.title()             | Page Title         |
+| st.header()            | Section Headers    |
+| st.sidebar.selectbox() | Navigation Menu    |
+| st.text_input()        | User Input         |
+| st.number_input()      | Numeric Input      |
+| st.selectbox()         | Dropdown Selection |
+| st.date_input()        | Date Selection     |
+| st.text_area()         | Multi-line Text    |
+| st.button()            | Trigger Actions    |
+| st.dataframe()         | Display Tables     |
+| st.bar_chart()         | Display Charts     |
+| st.success()           | Success Messages   |
+| st.error()             | Error Messages     |
+| st.warning()           | Warning Messages   |
+
+---
+
+# 9. Error Handling
+
+The application uses:
+
+```python
+try:
+    ...
+except Exception as e:
+    st.error(str(e))
+```
+
+This ensures:
+
+* Proper exception handling
+* Better user experience
+* API error visibility
+
+---
+
+# 10. Session State Usage
+
+The application uses Streamlit Session State for storing fetched expense data temporarily.
+
+Example:
+
+```python
+st.session_state["expense_data"] = data
+```
+
+Purpose:
+
+* Maintains data during reruns
+* Helps in updating expense forms
+
+---
+
+# Updated Deployment Section — Streamlit Cloud
+
+# 11. Deployment Using Streamlit Cloud
+
+The Expense Tracker Frontend Application is deployed using Streamlit Cloud, 
+which allows easy hosting and sharing of Streamlit applications online.
+
+---
+
+## 11.1 Prerequisites
+
+Before deployment, ensure the following:
+
+* GitHub repository contains frontend files
+* `app.py` is present
+* `requirements.txt` contains all required libraries
+* Backend API is already deployed and accessible
+* Streamlit Cloud account is available
+
+---
+
+## 11.2 Required Files
+
+Project structure:
+
+```plaintext id="c9o9b9"
+frontend/
+│
+├── app.py
+├── requirements.txt
+└── .streamlit/
+    └── secrets.toml
+```
+
+---
+
+## 11.3 requirements.txt
+
+Example:
+
+```txt id="y8n5jk"
+streamlit
+requests
+pandas
+```
+
+---
+
+## 11.4 Backend URL Configuration
+
+Sensitive information such as backend URL is stored securely using Streamlit Secrets.
+
+Example:
+
+```toml id="e7h8vs"
+be_server_url = "https://your-backend-api-url.com"
+```
+
+Accessed in application:
+
+```python id="a6z2kl"
+server = st.secrets["be_server_url"]
+```
+
+---
+
+## 11.5 Deployment Steps
+
+### Step 1: Push Code to GitHub
+
+Upload all frontend project files to a GitHub repository.
+
+---
+
+### Step 2: Open Streamlit Cloud
+
+Visit:
+
+[https://share.streamlit.io/](https://share.streamlit.io/)
+
+Login using GitHub account.
+
+---
+
+### Step 3: Create New App
+
+Click:
+
+```plaintext id="u2h9yo"
+New App
+```
+
+---
+
+### Step 4: Select Repository
+
+Choose:
+
+* GitHub Repository
+* Branch
+* `app.py` file
+
+---
+
+### Step 5: Add Secrets
+
+In Streamlit Cloud:
+
+```plaintext id="m8q7xa"
+Settings → Secrets
+```
+
+Add:
+
+```toml id="u1j4pi"
+be_server_url = "https://your-backend-api-url.com"
+```
+
+---
+
+### Step 6: Deploy Application
+
+Click:
+
+```plaintext id="t4s8md"
+Deploy
+```
+
+Streamlit Cloud automatically installs dependencies and hosts the application.
+
+---
+
+## 11.6 Deployment Features
+
+Benefits of using Streamlit Cloud:
+
+* Free hosting
+* Easy deployment
+* Automatic GitHub integration
+* Fast updates after GitHub push
+* Secure secrets management
+* Public shareable URL
+
+---
+
+## 11.7 Updating the Application
+
+To update the deployed app:
+
+1. Modify code locally
+2. Push changes to GitHub
+3. Streamlit Cloud automatically redeploys the application
+
+---
+
+## 11.8 Common Deployment Errors
+
+| Error                 | Reason               | Solution                             |
+| --------------------- | -------------------- | ------------------------------------ |
+| ModuleNotFoundError   | Missing package      | Add package to requirements.txt      |
+| Secrets Error         | Missing secrets      | Configure secrets in Streamlit Cloud |
+| API Connection Failed | Backend not running  | Verify backend deployment            |
+| App Crash             | Syntax/runtime error | Check deployment logs                |
+
+---
+
+## 11.9 Deployment URL
+
+After successful deployment, Streamlit Cloud generates a public URL such as:
+
+```plaintext id="o58x6f"
+https://your-app-name.streamlit.app
+```
+
+Users can access the Expense Tracker application through this URL.
+
+
+---
+
+# 12. How to Run the Application Locally
+
+## Step 1: Clone Repository
+
+```bash
+git clone <repository-url>
+```
+
+## Step 2: Navigate to Project Folder
+
+```bash
+cd frontend
+```
+
+## Step 3: Install Requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+## Step 4: Run Application
+
+```bash
+streamlit run app.py
+```
+
+---
+
+# 13. Future Enhancements
+
+Possible improvements:
+
+* User Authentication
+* Monthly Expense Reports
+* Pie Chart Analytics
+* Export to Excel/PDF
+* Search & Filters
+* Dark Mode UI
+* Mobile Responsive Design
+* AI-Based Expense Prediction
+
+---
+
+# 14. Conclusion
+
+The Expense Tracker Frontend Application provides a simple and user-friendly interface for
+managing personal expenses. Using Streamlit and REST APIs, the application demonstrates 
+CRUD operations, data visualization, and frontend-backend integration effectively.
+
+
