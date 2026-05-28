@@ -2,19 +2,18 @@ import streamlit as st
 import requests
 import pandas as pd
 
-# ======================================================
+
 # BACKEND SERVER URL
-# ======================================================
+
 server = st.secrets["be_server_url"]
 
-# ======================================================
+
 # PAGE TITLE
-# ======================================================
+
 st.title("Expense Tracker App")
 
-# ======================================================
 # SIDEBAR MENU
-# ======================================================
+
 menu = st.sidebar.selectbox(
     "Select Option",
     [
@@ -26,9 +25,9 @@ menu = st.sidebar.selectbox(
     ]
 )
 
-# ======================================================
+
 # ADD EXPENSE
-# ======================================================
+
 if menu == "Add Expense":
 
     st.header("Add Expense")
@@ -102,9 +101,9 @@ if menu == "Add Expense":
 
             st.error(str(e))
 
-# ======================================================
+
 # VIEW EXPENSES
-# ======================================================
+
 elif menu == "View Expenses":
 
     st.header("All Expenses")
@@ -137,9 +136,9 @@ elif menu == "View Expenses":
 
         st.error(str(e))
 
-# ======================================================
+
 # UPDATE EXPENSE
-# ======================================================
+
 elif menu == "Update Expense":
 
     st.header("Update Expense")
@@ -150,9 +149,8 @@ elif menu == "Update Expense":
         step=1
     )
 
-    # --------------------------------------------------
     # FETCH EXPENSE
-    # --------------------------------------------------
+   
     if st.button("Fetch Expense"):
 
         try:
@@ -175,9 +173,9 @@ elif menu == "Update Expense":
 
             st.error(str(e))
 
-    # --------------------------------------------------
+    
     # UPDATE FORM
-    # --------------------------------------------------
+    
     if "expense_data" in st.session_state:
 
         data = st.session_state["expense_data"]
@@ -244,9 +242,8 @@ elif menu == "Update Expense":
 
                 st.error(str(e))
 
-# ======================================================
 # DELETE EXPENSE
-# ======================================================
+
 elif menu == "Delete Expense":
 
     st.header("Delete Expense")
@@ -279,9 +276,9 @@ elif menu == "Delete Expense":
 
             st.error(str(e))
 
-# ======================================================
+
 # EXPENSE SUMMARY
-# ======================================================
+
 elif menu == "Expense Summary":
 
     st.header("Expense Summary By Category")
